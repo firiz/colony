@@ -3,6 +3,7 @@ const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const bluebird = require('bluebird');
+const consul = require('consul')({ promisify: true });
 
 const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
@@ -17,11 +18,14 @@ const packageDefinition = protoLoader.loadSync(
 
 const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
 
-const client = new echoProto.EchoService('127.0.0.1:50051', grpc.credentials.createInsecure());
-bluebird.promisifyAll(client);
+
 
 const run = async () => {
   try {
+    const services = await consul.agent.service.list();
+    const client = new echoProto.EchoService(`${services.echo.Address}:${services.echo.Port}`, grpc.credentials.createInsecure());
+    bluebird.promisifyAll(client);
+
     const echoMessage = {
       message: 'test',
     };

@@ -1,9 +1,10 @@
 const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
-const HOST = '0.0.0.0';
+const HOST = '127.0.0.1';
 
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const getPort = require('get-port');
+const consul = require('consul')({ promisify: true });
 
 const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
@@ -33,8 +34,13 @@ const run = async () => {
   try {
     const port = await getPort();
     server.bind(`${HOST}:${port}`, grpc.ServerCredentials.createInsecure());
-    console.log(`Server running at http://${HOST}:${port}`);
     server.start();
+    await consul.agent.service.register({
+      name: 'echo',
+      address: HOST,
+      port,
+      tags: ['service', 'echo'],
+    });
   } catch (error) {
     console.log('Error: ', error);
   }
