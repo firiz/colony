@@ -1,10 +1,24 @@
-const grpc = require('grpc');
+const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
 
-const echoProto = grpc.load('../../proto/service/echo.proto');
+const grpc = require('grpc');
+const protoLoader = require('@grpc/proto-loader');
+
+const packageDefinition = protoLoader.loadSync(
+  PROTO_PATH,
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true,
+  },
+);
+
+const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
 
 const server = new grpc.Server();
 
-server.addService(echoProto.colony.EchoService.service, {
+server.addService(echoProto.EchoService.service, {
   echo(call, callback) {
     const echo = {
       message: call.request.message,
