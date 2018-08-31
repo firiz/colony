@@ -1,0 +1,70 @@
+{
+  "name": "colony",
+  "version": "1.0.0",
+  "description": "A boilerplate for developing microservices using grpc, consul, and node",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --forceExit"
+  },
+  "jest": {
+    "testResultsProcessor": "jest-junit"
+  },
+  "jest-junit": {
+    "output": "./coverage/junit.xml",
+    "classNameTemplate": "{title}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firiz/colony.git"
+  },
+  "keywords": [
+    "nodejs",
+    "microservices",
+    "grpc",
+    "node",
+    "microservice"
+  ],
+  "author": "firiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/firiz/colony/issues"
+  },
+  "homepage": "https://github.com/firiz/colony#readme",
+  "dependencies": {
+    "accesscontrol": "^2.2.1",
+    "async-request": "^1.2.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "compose-middleware": "^4.0.0",
+    "convict": "^4.0.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-validator": "^4.3.0",
+    "grpc": "^1.14.1",
+    "helmet": "^3.9.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.6",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.6.3",
+    "passport": "^0.4.0",
+    "passport-custom": "^1.0.5",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "protobufjs": "^6.8.8",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "require-all": "^2.2.0",
+    "winston": "^3.0.0-rc1"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "jest": "^23.5.0",
+    "jest-junit": "^5.1.0"
+  }
+}
