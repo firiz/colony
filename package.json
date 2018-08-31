@@ -44,6 +44,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
+    "get-port": "^4.0.0",
     "grpc": "^1.14.1",
     "helmet": "^3.9.0",
     "jsonwebtoken": "^8.1.0",
