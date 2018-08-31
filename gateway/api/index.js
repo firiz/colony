@@ -1,8 +1,8 @@
 const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
 
 const grpc = require('grpc');
-
 const protoLoader = require('@grpc/proto-loader');
+const bluebird = require('bluebird');
 
 const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
@@ -17,14 +17,20 @@ const packageDefinition = protoLoader.loadSync(
 
 const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
 
-const index = new echoProto.EchoService('127.0.0.1:50051', grpc.credentials.createInsecure());
+const client = new echoProto.EchoService('127.0.0.1:50051', grpc.credentials.createInsecure());
+bluebird.promisifyAll(client);
 
-index.echo({
-  message: 'test',
-}, (error, message) => {
-  if (error) {
+const run = async () => {
+  try {
+    const echoMessage = {
+      message: 'test',
+    };
+
+    const result = await client.echoAsync(echoMessage);
+    console.log(result);
+  } catch (error) {
     console.log('Error: ', error);
-  } else {
-    console.log(message);
   }
-});
+};
+
+run();
