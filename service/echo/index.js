@@ -1,45 +1,34 @@
-const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
-const HOST = '127.0.0.1';
+const amqp = require('amqplib');
 
-const grpc = require('grpc');
-const protoLoader = require('@grpc/proto-loader');
-const getPort = require('get-port');
-const consul = require('consul')({ promisify: true });
-
-const packageDefinition = protoLoader.loadSync(
-  PROTO_PATH,
-  {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-  },
-);
-
-const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
-
-const server = new grpc.Server();
-
-server.addService(echoProto.EchoService.service, {
-  echo(call, callback) {
-    const echo = {
-      message: call.request.message,
-    };
-    callback(null, echo);
-  },
-});
+function fibonacci(n) {
+  if (n === 0 || n === 1) {
+    return n;
+  } else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+}
 
 const run = async () => {
   try {
-    const port = await getPort();
-    server.bind(`${HOST}:${port}`, grpc.ServerCredentials.createInsecure());
-    server.start();
-    await consul.agent.service.register({
-      name: 'echo',
-      address: HOST,
-      port,
-      tags: ['service', 'echo'],
+    const conn = await amqp.connect('amqp://localhost');
+    const ch = await conn.createChannel();
+    const q = 'rpc_queue';
+
+    ch.assertQueue(q, {durable: false});
+    ch.prefetch(1);
+    console.log(' [x] Awaiting RPC requests');
+    ch.consume(q, (msg) => {
+      const n = parseInt(msg.content.toString(), 10);
+
+      console.log(' [.] fib(%d)', n);
+
+      const r = fibonacci(n);
+
+      ch.sendToQueue(msg.properties.replyTo,
+        Buffer.from(r.toString()),
+        { correlationId: msg.properties.correlationId });
+
+      ch.ack(msg);
     });
   } catch (error) {
     console.log('Error: ', error);

@@ -1,35 +1,39 @@
-const PROTO_PATH = `${__dirname}/../../proto/service/echo.proto`;
+const amqp = require('amqplib');
 
-const grpc = require('grpc');
-const protoLoader = require('@grpc/proto-loader');
-const bluebird = require('bluebird');
-const consul = require('consul')({ promisify: true });
+const args = process.argv.slice(2);
 
-const packageDefinition = protoLoader.loadSync(
-  PROTO_PATH,
-  {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-  },
-);
+function generateUuid() {
+  return Math.random().toString()
+    + Math.random().toString()
+    + Math.random().toString();
+}
 
-const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
+if (args.length === 0) {
+  console.log('Usage: rpc_client.js num');
+  process.exit(1);
+}
 
 const run = async () => {
   try {
-    const services = await consul.agent.service.list();
-    const client = new echoProto.EchoService(`${services.echo.Address}:${services.echo.Port}`, grpc.credentials.createInsecure());
-    bluebird.promisifyAll(client);
+    const conn = await amqp.connect('amqp://localhost');
+    const ch = await conn.createChannel();
+    const q = await ch.assertQueue('', { exclusive: true });
 
-    const echoMessage = {
-      message: 'test',
-    };
+    const corr = generateUuid();
+    const num = parseInt(args[0], 10);
 
-    const result = await client.echoAsync(echoMessage);
-    console.log(result);
+    console.log(' [x] Requesting fib(%d)', num);
+
+    ch.consume(q.queue, (msg) => {
+      if (msg.properties.correlationId === corr) {
+        console.log(' [.] Got %s', msg.content.toString());
+        setTimeout(() => { conn.close(); process.exit(0); }, 500);
+      }
+    }, { noAck: true });
+
+    ch.sendToQueue('rpc_queue',
+      Buffer.from(num.toString()),
+      { correlationId: corr, replyTo: q.queue });
   } catch (error) {
     console.log('Error: ', error);
   }

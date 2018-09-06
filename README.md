@@ -1,2 +1,2 @@
 # colony
-A boilerplate for developing microservices using grpc, consul, and node
+A boilerplate for developing microservices using rabbitmq, protobuf, and node

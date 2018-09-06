@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-import "../message/echo.proto";
-
-package colony;
-
-service EchoService {
-  rpc Echo (EchoMessage) returns (EchoMessage) {}
-}

@@ -36,6 +36,7 @@
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
     "accesscontrol": "^2.2.1",
+    "amqplib": "^0.5.2",
     "async-request": "^1.2.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
