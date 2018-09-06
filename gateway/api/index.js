@@ -18,8 +18,6 @@ const packageDefinition = protoLoader.loadSync(
 
 const echoProto = grpc.loadPackageDefinition(packageDefinition).colony;
 
-
-
 const run = async () => {
   try {
     const services = await consul.agent.service.list();
