@@ -1,14 +1,15 @@
 syntax = "proto3";
-package fibonacci;
+package math.power;
 
-service Fibonacci {
+service Power {
   rpc Calculate (CalculateRequest) returns (CalculateReply) {}
 }
 
 message CalculateRequest {
-  int32 number = 1;
+  int32 b = 1;
+  int32 e = 2;
 }
 
 message CalculateReply {
-  int32 fib = 1;
+  int32 pow = 1;
 }

@@ -1,1 +1,4 @@
+syntax = "proto3";
+
 import "./fibonacci/service.proto";
+import "./math/service.proto";

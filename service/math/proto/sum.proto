@@ -1,14 +1,15 @@
 syntax = "proto3";
-package fibonacci;
+package math.sum;
 
-service Fibonacci {
+service Sum {
   rpc Calculate (CalculateRequest) returns (CalculateReply) {}
 }
 
 message CalculateRequest {
-  int32 number = 1;
+  int32 a = 1;
+  int32 b = 2;
 }
 
 message CalculateReply {
-  int32 fib = 1;
+  int32 sum = 1;
 }

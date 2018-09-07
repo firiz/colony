@@ -36,6 +36,7 @@
   "homepage": "https://github.com/firiz/colony#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "flat": "^4.1.0",
     "protobufjs": "^6.8.8"
   },
   "devDependencies": {

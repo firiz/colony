@@ -15,15 +15,15 @@ function fibonacci(n) {
 const run = async () => {
   try {
     await ProtoRpc.initServices('../root.proto');
-    await ProtoRpc.implement('Fibonacci.Calculate', (data) => {
+    await ProtoRpc.implement('fibonacci.Fibonacci.Calculate', (data) => {
       const n = Math.min(30, data.number);
 
       console.log(' [.] fib(%d)', n);
 
-      const r = fibonacci(n);
+      const fib = fibonacci(n);
 
       return {
-        number: r,
+        fib,
       };
     });
   } catch (error) {

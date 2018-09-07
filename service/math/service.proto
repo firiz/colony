@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+import "./proto/power.proto";
+import "./proto/sum.proto";
