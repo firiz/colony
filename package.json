@@ -4,7 +4,8 @@
   "description": "A boilerplate for developing microservices using grpc, consul, and node",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --forceExit"
+    "test": "jest --coverage --forceExit",
+    "postinstall": "npm link ./lib/colony-rpc"
   },
   "jest": {
     "testResultsProcessor": "jest-junit"

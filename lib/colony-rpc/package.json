@@ -1,0 +1,48 @@
+{
+  "name": "colony-rpc",
+  "version": "1.0.0",
+  "description": "A pluggable library to handle rpc calls over specific interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage --forceExit"
+  },
+  "jest": {
+    "testResultsProcessor": "jest-junit"
+  },
+  "jest-junit": {
+    "output": "./coverage/junit.xml",
+    "classNameTemplate": "{title}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firiz/colony.git"
+  },
+  "keywords": [
+    "rpc",
+    "grpc",
+    "rabbitmq",
+    "node",
+    "microservice"
+  ],
+  "author": "firiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/firiz/colony/issues"
+  },
+  "homepage": "https://github.com/firiz/colony#readme",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "bluebird": "^3.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "jest": "^23.5.0",
+    "jest-junit": "^5.1.0"
+  }
+}
