@@ -1,6 +1,12 @@
 # Colony
 
-A boilerplate for developing microservices using RabbitMQ ([amqp](https://www.npmjs.com/package/amqp)) and Protocol Buffers ([protobufjs](https://www.npmjs.com/package/protobufjs)) with Node.js
+A boilerplate for developing scalable microservices using RabbitMQ ([amqp](https://www.npmjs.com/package/amqp)) and Protocol Buffers ([protobufjs](https://www.npmjs.com/package/protobufjs)) with Node.js. featuring:
+* Node.js Async/Await interface
+* Protocol Buffers
+* RabbitMQ 
+* RPC Concept
+* Eslint
+* PM2 Cluster Mode
 
 ## Getting Started
 
