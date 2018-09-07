@@ -1,8 +1,9 @@
 const ProtoRpc = require('colony-proto');
+const path = require('path');
 
 const run = async () => {
   try {
-    await ProtoRpc.initServices('../root.proto');
+    await ProtoRpc.initServices(path.join(__dirname, '../root.proto'));
     await ProtoRpc.implement('math.power.Power.Calculate', (data) => {
       const { b, e } = data;
 

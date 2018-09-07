@@ -1,9 +1,10 @@
 {
   "name": "colony",
   "version": "1.0.0",
-  "description": "A boilerplate for developing microservices using grpc, consul, and node",
+  "description": "A boilerplate for developing microservices using rabbitmq, protobuf, and node",
   "main": "index.js",
   "scripts": {
+    "start": " pm2 start bin/ecosystem.config.js",
     "test": "jest --coverage --forceExit",
     "postinstall": "npm link ./lib/colony-proto"
   },
@@ -24,7 +25,8 @@
   "keywords": [
     "nodejs",
     "microservices",
-    "grpc",
+    "rabbitmq",
+    "protobuf",
     "node",
     "microservice"
   ],

@@ -1,4 +1,5 @@
 const ProtoRpc = require('colony-proto');
+const path = require('path');
 
 function fibonacci(n) {
   if (n === 0 || n === 1) {
@@ -14,7 +15,7 @@ function fibonacci(n) {
 
 const run = async () => {
   try {
-    await ProtoRpc.initServices('../root.proto');
+    await ProtoRpc.initServices(path.join(__dirname, '../root.proto'));
     await ProtoRpc.implement('fibonacci.Fibonacci.Calculate', (data) => {
       const n = Math.min(30, data.number);
 

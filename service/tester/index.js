@@ -1,8 +1,9 @@
 const ProtoRpc = require('colony-proto');
+const path = require('path');
 
 const run = async () => {
   try {
-    const root = await ProtoRpc.initServices('../root.proto');
+    const root = await ProtoRpc.initServices(path.join(__dirname, '../root.proto'));
 
     while (true) {
       const number = Math.round(Math.random() * 30);
