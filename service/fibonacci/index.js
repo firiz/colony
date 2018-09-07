@@ -1,10 +1,12 @@
-const RabbitRpc = require('colony-rpc');
-
-const client = new RabbitRpc();
+const ProtoRpc = require('colony-proto');
 
 function fibonacci(n) {
   if (n === 0 || n === 1) {
     return n;
+  }
+
+  if (n > 30) {
+    return fibonacci(30);
   }
 
   return fibonacci(n - 1) + fibonacci(n - 2);
@@ -12,16 +14,17 @@ function fibonacci(n) {
 
 const run = async () => {
   try {
-    await client.init();
-
-    client.addHandler('fibonacci.calculate', (data) => {
-      const n = Math.min(30, parseInt(data.toString(), 10));
+    await ProtoRpc.initServices('../root.proto');
+    await ProtoRpc.implement('Fibonacci.Calculate', (data) => {
+      const n = Math.min(30, data.number);
 
       console.log(' [.] fib(%d)', n);
 
       const r = fibonacci(n);
 
-      return r;
+      return {
+        number: r,
+      };
     });
   } catch (error) {
     console.log('Error: ', error);

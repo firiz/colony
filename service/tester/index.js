@@ -1,19 +1,17 @@
-const RabbitRpc = require('colony-rpc');
-
-const client = new RabbitRpc();
+const ProtoRpc = require('colony-proto');
 
 const run = async () => {
   try {
-    await client.init();
+    const services = await ProtoRpc.initServices('../root.proto');
 
     while (true) {
-      const num = Math.round(Math.random() * 30);
+      const number = Math.round(Math.random() * 30);
 
-      console.log(' [x] Requesting fib(%d)', num);
+      console.log(' [x] Requesting fib(%d)', number);
 
-      const result = await client.call('fibonacci.calculate', num);
+      const reply = await services.fibonacci.calculate({ number });
 
-      console.log(' [.] Got %s', result.toString());
+      console.log(' [.] Got %s', reply.number);
     }
   } catch (error) {
     console.log('Error: ', error);

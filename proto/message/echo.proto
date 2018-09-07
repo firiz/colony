@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package colony;
-
-message EchoMessage {
-  string message = 1;
-}

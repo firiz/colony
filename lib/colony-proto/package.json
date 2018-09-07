@@ -1,11 +1,11 @@
 {
-  "name": "colony",
+  "name": "colony-proto",
   "version": "1.0.0",
-  "description": "A boilerplate for developing microservices using grpc, consul, and node",
+  "description": "A library to convert proto file into js functions over colony-rpc",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --forceExit",
-    "postinstall": "npm link ./lib/colony-proto"
+    "postinstall": "npm link ../colony-rpc"
   },
   "jest": {
     "testResultsProcessor": "jest-junit"
@@ -22,9 +22,9 @@
     "url": "git+https://github.com/firiz/colony.git"
   },
   "keywords": [
-    "nodejs",
-    "microservices",
+    "rpc",
     "grpc",
+    "protobuf",
     "node",
     "microservice"
   ],
@@ -34,7 +34,10 @@
     "url": "https://github.com/firiz/colony/issues"
   },
   "homepage": "https://github.com/firiz/colony#readme",
-
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "protobufjs": "^6.8.8"
+  },
   "devDependencies": {
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
