@@ -1,4 +1,4 @@
-const RabbitRpc = require('colony-rpc/rabbit');
+const RabbitRpc = require('colony-rpc');
 
 const client = new RabbitRpc();
 
