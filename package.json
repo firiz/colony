@@ -4,7 +4,8 @@
   "description": "A boilerplate for developing microservices using rabbitmq, protobuf, and node",
   "main": "index.js",
   "scripts": {
-    "start": " pm2 start bin/ecosystem.config.js",
+    "start": "pm2 start bin/ecosystem.config.js",
+    "lint": "eslint .",
     "test": "jest --coverage --forceExit",
     "postinstall": "npm link ./lib/colony-proto"
   },
